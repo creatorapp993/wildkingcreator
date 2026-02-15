@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Safety Standards - Besties™</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a2e;
+            background: #ffffff;
+            line-height: 1.7;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .nav-logo svg { width: 40px; height: 40px; }
+        .nav-logo span {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        .nav-logo sup {
+            font-size: 10px;
+            color: #888;
+            vertical-align: super;
+        }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #2196F3; }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+        .last-updated {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+        }
+        p {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 16px;
+        }
+        ul {
+            margin: 12px 0 20px 24px;
+            font-size: 15px;
+            color: #444;
+        }
+        ul li { margin-bottom: 8px; }
+        a { color: #2196F3; }
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid #f0f0f0;
+            color: #888;
+            font-size: 13px;
+        }
+        footer a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+        footer a:hover { color: #2196F3; }
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-links { gap: 20px; }
+            .content { padding: 40px 20px 80px; }
+            h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-logo">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="gradRed" cx="50%" cy="30%">
+                        <stop offset="0%" stop-color="#FF5555"/>
+                        <stop offset="100%" stop-color="#660000"/>
+                    </radialGradient>
+                    <radialGradient id="gradGold" cx="50%" cy="30%">
+                        <stop offset="0%" stop-color="#FFFF77"/>
+                        <stop offset="100%" stop-color="#CC9900"/>
+                    </radialGradient>
+                </defs>
+                <rect width="1024" height="1024" fill="#FFFFFF" rx="180"/>
+                <g transform="translate(512, 512) scale(1.25) translate(-512, -460)">
+                    <g>
+                        <circle cx="320" cy="280" r="85" fill="url(#gradRed)" stroke="#2C3E50" stroke-width="8"/>
+                        <path d="M 320 365 Q 300 450 280 580 L 360 580 Q 340 450 320 365 Z" fill="url(#gradRed)" stroke="#2C3E50" stroke-width="8"/>
+                        <path d="M 285 400 Q 180 450 120 520" fill="none" stroke="url(#gradRed)" stroke-width="55" stroke-linecap="round"/>
+                        <path d="M 355 400 Q 440 320 500 240" fill="none" stroke="url(#gradRed)" stroke-width="55" stroke-linecap="round"/>
+                        <path d="M 290 580 L 260 720" fill="none" stroke="url(#gradRed)" stroke-width="50" stroke-linecap="round"/>
+                        <path d="M 350 580 L 380 720" fill="none" stroke="url(#gradRed)" stroke-width="50" stroke-linecap="round"/>
+                    </g>
+                    <g>
+                        <circle cx="704" cy="280" r="85" fill="url(#gradGold)" stroke="#2C3E50" stroke-width="8"/>
+                        <path d="M 704 365 Q 724 450 744 580 L 664 580 Q 684 450 704 365 Z" fill="url(#gradGold)" stroke="#2C3E50" stroke-width="8"/>
+                        <path d="M 739 400 Q 844 450 904 520" fill="none" stroke="#2C3E50" stroke-width="65" stroke-linecap="round"/>
+                        <path d="M 669 400 Q 584 320 524 240" fill="none" stroke="#2C3E50" stroke-width="65" stroke-linecap="round"/>
+                        <path d="M 739 400 Q 844 450 904 520" fill="none" stroke="url(#gradGold)" stroke-width="55" stroke-linecap="round"/>
+                        <path d="M 669 400 Q 584 320 524 240" fill="none" stroke="url(#gradGold)" stroke-width="55" stroke-linecap="round"/>
+                        <path d="M 734 580 L 764 720" fill="none" stroke="url(#gradGold)" stroke-width="50" stroke-linecap="round"/>
+                        <path d="M 674 580 L 644 720" fill="none" stroke="url(#gradGold)" stroke-width="50" stroke-linecap="round"/>
+                    </g>
+                    <g stroke="#2C3E50" stroke-width="8" stroke-linecap="round" fill="none">
+                        <line x1="512" y1="200" x2="512" y2="150"/>
+                        <line x1="470" y1="215" x2="440" y2="180"/>
+                        <line x1="554" y1="215" x2="584" y2="180"/>
+                        <line x1="445" y1="250" x2="405" y2="235"/>
+                        <line x1="579" y1="250" x2="619" y2="235"/>
+                    </g>
+                </g>
+            </svg>
+            <span>Besties<sup>™</sup></span>
+        </a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/support.html">Support</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Child Safety Standards</h1>
+        <p class="last-updated">Last Updated: February 14, 2026</p>
+
+        <p>Besties, Inc. ("Besties," "we," "us," or "our") is committed to the safety and protection of all users, particularly minors. This page outlines our standards and practices for preventing child sexual abuse and exploitation (CSAE) on the Besties™ platform.</p>
+
+        <h2>1. Platform Age Restriction</h2>
+        <p>Besties™ is designed exclusively for college students aged 18 and older. All users must verify their identity using a valid .edu email address before accessing the platform. This verification requirement serves as a safeguard to prevent minors from accessing the app.</p>
+
+        <h2>2. Zero Tolerance Policy</h2>
+        <p>Besties maintains a strict zero-tolerance policy against child sexual abuse material (CSAM) and any form of child exploitation. Any content or behavior that sexualizes, exploits, endangers, or harms minors is strictly prohibited and will result in immediate action, including but not limited to:</p>
+        <ul>
+            <li>Immediate removal of the offending content</li>
+            <li>Permanent suspension of the offending account</li>
+            <li>Reporting to the National Center for Missing & Exploited Children (NCMEC) via the CyberTipline</li>
+            <li>Reporting to relevant law enforcement authorities</li>
+        </ul>
+
+        <h2>3. Reporting Mechanisms</h2>
+        <p>Besties provides multiple ways for users to report child safety concerns:</p>
+        <ul>
+            <li><strong>In-App Reporting:</strong> Users can report any profile, post, or message by tapping the report button within the app. Reports related to child safety are prioritized for immediate review.</li>
+            <li><strong>Email:</strong> Users can report concerns directly to our safety team at <a href="mailto:support@allmybesties.com">support@allmybesties.com</a>.</li>
+        </ul>
+
+        <h2>4. Content Moderation</h2>
+        <p>We employ a combination of proactive and reactive measures to detect and prevent CSAE content on our platform:</p>
+        <ul>
+            <li>Automated content moderation systems to detect and flag prohibited content</li>
+            <li>User-generated reports reviewed by our team</li>
+            <li>Regular audits of platform content and user activity</li>
+            <li>Prompt removal of any content that violates our policies</li>
+        </ul>
+
+        <h2>5. Cooperation with Authorities</h2>
+        <p>Besties complies with all applicable child safety laws and regulations. We cooperate fully with law enforcement agencies and report any identified CSAM or child exploitation to the appropriate regional and national authorities, including but not limited to:</p>
+        <ul>
+            <li>National Center for Missing & Exploited Children (NCMEC)</li>
+            <li>Federal Bureau of Investigation (FBI)</li>
+            <li>Local and state law enforcement agencies as applicable</li>
+        </ul>
+
+        <h2>6. Data Preservation</h2>
+        <p>When we identify potential CSAE content or receive a report related to child safety, we preserve all relevant data and evidence in accordance with legal requirements to support any investigation by law enforcement authorities.</p>
+
+        <h2>7. Contact Information</h2>
+        <p>For any questions or concerns regarding our child safety practices, or to report a child safety issue, please contact us:</p>
+        <p><strong>Besties, Inc.</strong><br>
+        Email: <a href="mailto:support@allmybesties.com">support@allmybesties.com</a></p>
+
+        <h2>8. Updates to This Policy</h2>
+        <p>We may update these child safety standards from time to time to reflect changes in our practices or applicable laws. We encourage you to review this page periodically.</p>
+    </div>
+
+    <footer>
+        <p>Besties™</p>
+        <div style="margin-top: 12px;">
+            <a href="/">Home</a>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Use</a>
+            <a href="/support.html">Support</a>
+        </div>
+    </footer>
+</body>
+</html>
