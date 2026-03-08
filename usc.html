@@ -2,421 +2,360 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Besties™ at USC - Where Trojans Become Besties</title>
-    <meta name="description" content="Download Besties™ - the social app exclusively for USC students. Find friends, missed connections, hangouts & more.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Besties @ USC</title>
+    <meta name="description" content="Besties — the private social network built just for University of Southern California students.">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="logo.png">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Besties™ at USC - Where Trojans Become Besties">
-    <meta property="og:description" content="The social app exclusively for USC students. Find friends, missed connections, hangouts & more. Fight On! ✌️">
+    <meta property="og:title" content="Besties @ USC">
+    <meta property="og:description" content="The private social network built just for University of Southern California students.">
     <meta property="og:image" content="https://allmybesties.com/logo.png">
     <meta property="og:url" content="https://allmybesties.com/usc">
     <meta property="og:type" content="website">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-        // Smart redirect — fires before render
-        (function() {
-            var ua = navigator.userAgent || navigator.vendor || window.opera;
-            var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-            var isAndroid = /android/i.test(ua);
-            
-            if (isIOS) {
-                window.location.href = "https://apps.apple.com/us/app/besties-usc/id6757664170";
-            } else if (isAndroid) {
-                window.location.href = "https://play.google.com/store/apps/details?id=com.bestiesatusc.app&hl=en_US";
-            }
-            // Desktop/other: show landing page
-        })();
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-
+        html { background: #050510; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #050510;
+            color: #f0f0f5;
+            min-height: 100vh;
+            min-height: 100dvh;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
-        /* ── Neon glow background (matches app store aesthetic) ── */
+        /* ── Dramatic background with blue brand glow ── */
         .bg {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
         }
         .bg::before {
             content: '';
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 70% 60% at 0% 0%, rgba(255,50,0,0.55) 0%, rgba(200,0,0,0.3) 30%, transparent 70%),
-                radial-gradient(ellipse 70% 60% at 100% 100%, rgba(255,199,44,0.5) 0%, rgba(255,180,0,0.25) 30%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 50% 50%, rgba(153,0,0,0.15) 0%, transparent 100%),
-                radial-gradient(ellipse 60% 40% at 10% 50%, rgba(255,100,0,0.2) 0%, transparent 100%),
-                radial-gradient(ellipse 60% 40% at 90% 40%, rgba(255,199,44,0.2) 0%, transparent 100%),
-                radial-gradient(ellipse 80% 50% at 50% 5%, rgba(200,0,0,0.3) 0%, transparent 100%),
-                linear-gradient(135deg, #1a0800 0%, #0d0000 30%, #000000 70%, #0a0500 100%);
+                radial-gradient(ellipse 70% 50% at 15% 0%, rgba(14,165,233,0.18) 0%, rgba(14,165,233,0.06) 40%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 85% 100%, rgba(14,165,233,0.12) 0%, rgba(14,100,200,0.04) 40%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 50% 40%, rgba(14,165,233,0.04) 0%, transparent 70%),
+                #050510;
         }
-        /* Subtle grid overlay */
+        /* Subtle grid texture */
         .bg::after {
             content: '';
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background-image:
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 45px 45px;
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 48px 48px;
         }
 
-        /* ── Main container ── */
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 440px;
-            padding: 40px 28px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+        .page {
+            position: relative; z-index: 1;
+            max-width: 420px; margin: 0 auto; padding: 0 24px;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         /* ── Animations ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
+        @keyframes up {
+            from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes glowPulse {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255,199,44,0.4)) drop-shadow(0 0 50px rgba(153,0,0,0.2)); }
-            50% { filter: drop-shadow(0 0 30px rgba(255,199,44,0.6)) drop-shadow(0 0 70px rgba(153,0,0,0.35)); }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 12px 40px rgba(14,165,233,0.12), 0 0 0 0.5px rgba(255,255,255,0.08); }
+            50% { box-shadow: 0 16px 52px rgba(14,165,233,0.2), 0 0 0 0.5px rgba(255,255,255,0.1); }
+        }
+        .a { animation: up 0.5s ease-out both; }
+        .a1 { animation-delay: 0.04s; }
+        .a2 { animation-delay: 0.08s; }
+        .a3 { animation-delay: 0.12s; }
+        .a4 { animation-delay: 0.18s; }
+        .a5 { animation-delay: 0.24s; }
+        .a6 { animation-delay: 0.30s; }
+        .a7 { animation-delay: 0.36s; }
+
+        /* ── Hero ── */
+        .hero {
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; padding-top: 56px; width: 100%;
         }
 
-        /* ── Logo ── */
-        .logo-wrap {
-            width: 130px;
-            height: 130px;
-            margin-bottom: 20px;
-            border-radius: 30px;
-            overflow: hidden;
-            animation: fadeUp 0.6s ease-out 0.1s both, glowPulse 3s ease-in-out infinite;
+        .logo {
+            width: 120px; height: 120px; border-radius: 30px; overflow: hidden;
+            animation: up 0.5s ease-out 0.04s both, glow 3s ease-in-out 0.5s infinite;
+            margin-bottom: 22px;
         }
-        .logo-wrap svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
+        .logo svg { width: 100%; height: 100%; display: block; }
 
-        /* ── Title ── */
-        .title {
-            font-size: 56px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            line-height: 1;
-            margin-bottom: 10px;
-            animation: fadeUp 0.6s ease-out 0.15s both;
-            text-shadow:
-                0 0 20px rgba(255,255,255,0.7),
-                0 0 50px rgba(153,0,0,0.8),
-                0 0 80px rgba(153,0,0,0.4);
+        h1 {
+            font-size: 28px; font-weight: 700; letter-spacing: -0.3px;
+            line-height: 1; margin-bottom: 10px;
         }
-        .title .tm {
-            font-size: 0.35em;
-            vertical-align: super;
-            font-weight: 700;
-            color: #FFC72C;
-            text-shadow: 0 0 15px rgba(255,199,44,0.6);
-        }
-
-        .usc-badge {
-            display: inline-block;
-            background: #990000;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 3px;
-            padding: 6px 24px;
-            margin-bottom: 16px;
-            animation: fadeUp 0.6s ease-out 0.2s both;
-            box-shadow: 0 0 30px rgba(153,0,0,0.5);
+        h1 .at {
+            font-weight: 500;
+            opacity: 0.7;
         }
 
         .tagline {
-            font-size: 20px;
-            font-weight: 700;
-            color: #FFC72C;
-            margin-bottom: 36px;
-            animation: fadeUp 0.6s ease-out 0.25s both;
-            text-shadow: 0 0 25px rgba(255,199,44,0.6);
+            font-size: 15px; font-weight: 400;
+            color: rgba(255,255,255,0.5); line-height: 1.55;
+            max-width: 280px; margin-bottom: 32px;
         }
 
         /* ── Store buttons ── */
-        .store-buttons {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
-            animation: fadeUp 0.6s ease-out 0.3s both;
+        .stores {
+            width: 100%; display: flex; flex-direction: column;
+            gap: 10px; margin-bottom: 32px;
         }
-
-        .store-btn {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            width: 100%;
-            padding: 16px 24px;
-            border-radius: 14px;
+        .s-btn {
+            display: flex; align-items: center; gap: 14px;
+            width: 100%; padding: 15px 20px; border-radius: 14px;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
-        .store-btn:active { transform: scale(0.97); }
-        .store-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255,199,44,0.15);
-        }
+        .s-btn:active { transform: scale(0.98); }
+        .s-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
 
-        .store-btn.apple {
-            background: #FFC72C;
-            color: #000;
-        }
-        .store-btn.google {
-            background: rgba(255,255,255,0.08);
+        .s-btn.ios {
+            background: #0EA5E9;
             color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        }
+        .s-btn.gp {
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
-        .store-btn svg { width: 28px; height: 28px; flex-shrink: 0; }
-
-        .btn-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            line-height: 1.2;
-        }
-        .btn-label {
-            font-size: 11px;
-            font-weight: 600;
-            opacity: 0.7;
-            letter-spacing: 0.3px;
-        }
-        .btn-store {
-            font-size: 18px;
-            font-weight: 800;
-        }
+        .s-btn .icon { width: 26px; height: 26px; flex-shrink: 0; }
+        .s-btn .txt { display: flex; flex-direction: column; text-align: left; line-height: 1.15; }
+        .s-btn .small { font-size: 10.5px; font-weight: 400; opacity: 0.7; }
+        .s-btn .big { font-size: 17px; font-weight: 700; }
 
         /* ── Divider ── */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .sep {
+            width: 36px; height: 1px;
+            background: rgba(14,165,233,0.2);
+            margin-bottom: 28px;
+        }
+
+        /* ── Features 2×3 grid ── */
+        .features {
             width: 100%;
-            margin-bottom: 20px;
-            animation: fadeUp 0.6s ease-out 0.35s both;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 32px;
         }
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255,255,255,0.1);
+        .feat {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px;
+            padding: 16px 14px;
+            display: flex; flex-direction: column; gap: 6px;
+            transition: background 0.2s, border-color 0.2s;
         }
-        .divider span {
-            font-size: 11px;
-            color: rgba(255,255,255,0.35);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .feat:hover {
+            background: rgba(14,165,233,0.04);
+            border-color: rgba(14,165,233,0.1);
         }
+        .feat .emoji { font-size: 22px; line-height: 1; }
+        .feat .name {
+            font-size: 14px; font-weight: 700;
+            color: rgba(255,255,255,0.9); line-height: 1.2;
+        }
+        .feat .desc {
+            font-size: 11.5px; font-weight: 400;
+            color: rgba(255,255,255,0.35); line-height: 1.4;
+        }
+
+        /* ── Verified ── */
+        .verified {
+            display: flex; align-items: center; justify-content: center;
+            gap: 6px; font-size: 12.5px; font-weight: 500;
+            color: rgba(255,255,255,0.35); margin-bottom: 24px;
+        }
+        .verified svg { width: 14px; height: 14px; }
 
         /* ── Instagram ── */
-        .ig-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 28px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.06);
-            border: 1.5px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            text-decoration: none;
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-            animation: fadeUp 0.6s ease-out 0.4s both;
+        .social { margin-bottom: 28px; }
+        .ig {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 9px 18px; border-radius: 100px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            text-decoration: none; color: rgba(255,255,255,0.6);
+            font-weight: 500; font-size: 13px;
+            transition: border-color 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
-        .ig-link:hover {
-            transform: translateY(-2px);
-            border-color: rgba(221,42,123,0.5);
-            box-shadow: 0 6px 24px rgba(221,42,123,0.15);
-        }
-        .ig-link svg { width: 20px; height: 20px; }
+        .ig:hover { border-color: rgba(255,255,255,0.12); }
+        .ig svg { width: 16px; height: 16px; flex-shrink: 0; }
 
         /* ── Footer ── */
-        .footer-row {
-            margin-top: 32px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            animation: fadeUp 0.6s ease-out 0.45s both;
+        .foot {
+            text-align: center;
+            padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
         }
-        .footer-row .edu {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.4);
-        }
-        .footer-row .edu span {
-            color: rgba(255,255,255,0.55);
-        }
-        .footer-row .fight-on {
-            font-size: 16px;
-            font-weight: 900;
-            color: #990000;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(153,0,0,0.6);
-        }
-        .footer-row .copyright {
-            font-size: 11px;
+        .foot .disc {
+            font-size: 11px; font-weight: 400;
             color: rgba(255,255,255,0.2);
-            margin-top: 4px;
+            line-height: 1.6; max-width: 300px;
+            margin: 0 auto 8px;
         }
-        .footer-row a {
-            color: rgba(255,255,255,0.3);
-            text-decoration: none;
+        .foot .copy {
+            font-size: 11px;
+            color: rgba(255,255,255,0.15);
         }
+        .foot a { color: rgba(255,255,255,0.2); text-decoration: none; }
 
         /* ── Responsive ── */
-        @media (max-height: 700px) {
-            .container { padding: 24px 24px; }
-            .logo-wrap { width: 100px; height: 100px; margin-bottom: 14px; }
-            .title { font-size: 44px; }
-            .tagline { margin-bottom: 24px; }
-            .badge { margin-bottom: 18px; }
+        @media (min-width: 420px) {
+            .hero { padding-top: 72px; }
+            .logo { width: 128px; height: 128px; border-radius: 32px; }
+            h1 { font-size: 30px; }
         }
-        @media (max-width: 380px) {
-            .title { font-size: 44px; }
-            .usc-badge { font-size: 15px; padding: 5px 18px; }
+        @media (max-height: 640px) {
+            .hero { padding-top: 36px; }
+            .logo { width: 96px; height: 96px; border-radius: 24px; margin-bottom: 16px; }
+            .tagline { margin-bottom: 24px; }
+            .stores { margin-bottom: 24px; }
+            .features { gap: 8px; margin-bottom: 24px; }
+            .feat { padding: 12px 12px; }
+        }
+        @media (max-width: 340px) {
+            h1 { font-size: 24px; }
+            .tagline { font-size: 14px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg"></div>
+<div class="bg"></div>
 
-    <div class="container">
-        <div class="logo-wrap">
+<div class="page">
+
+    <section class="hero">
+        <div class="logo a a1">
             <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                 <rect width="1024" height="1024" fill="#FFFFFF" rx="180"/>
                 <g transform="translate(512, 512) scale(1.25) translate(-512, -460)">
-                    <g>
-                        <circle cx="320" cy="280" r="85" fill="url(#rS)" stroke="#2C3E50" stroke-width="8"/>
-                        <path d="M 320 365 Q 300 450 280 580 L 360 580 Q 340 450 320 365 Z" fill="url(#rS)" stroke="#2C3E50" stroke-width="8"/>
-                        <path d="M 285 400 Q 180 450 120 520" fill="none" stroke="url(#rS)" stroke-width="55" stroke-linecap="round"/>
-                        <path d="M 355 400 Q 440 320 500 240" fill="none" stroke="url(#rS)" stroke-width="55" stroke-linecap="round"/>
-                        <path d="M 290 580 L 260 720" fill="none" stroke="url(#rS)" stroke-width="50" stroke-linecap="round"/>
-                        <path d="M 350 580 L 380 720" fill="none" stroke="url(#rS)" stroke-width="50" stroke-linecap="round"/>
-                    </g>
-                    <g>
-                        <circle cx="704" cy="280" r="85" fill="url(#gS)" stroke="#2C3E50" stroke-width="8"/>
-                        <path d="M 704 365 Q 724 450 744 580 L 664 580 Q 684 450 704 365 Z" fill="url(#gS)" stroke="#2C3E50" stroke-width="8"/>
-                        <path d="M 739 400 Q 844 450 904 520" fill="none" stroke="url(#gS)" stroke-width="55" stroke-linecap="round"/>
-                        <path d="M 669 400 Q 584 320 524 240" fill="none" stroke="url(#gS)" stroke-width="55" stroke-linecap="round"/>
-                        <path d="M 734 580 L 764 720" fill="none" stroke="url(#gS)" stroke-width="50" stroke-linecap="round"/>
-                        <path d="M 674 580 L 644 720" fill="none" stroke="url(#gS)" stroke-width="50" stroke-linecap="round"/>
-                    </g>
-                    <g stroke="#2C3E50" stroke-width="8" stroke-linecap="round" fill="none">
-                        <line x1="512" y1="200" x2="512" y2="150"/>
-                        <line x1="470" y1="215" x2="440" y2="180"/>
-                        <line x1="554" y1="215" x2="584" y2="180"/>
-                        <line x1="445" y1="250" x2="405" y2="235"/>
-                        <line x1="579" y1="250" x2="619" y2="235"/>
-                    </g>
+                    <g><circle cx="320" cy="280" r="85" fill="url(#r)" stroke="#2C3E50" stroke-width="8"/><path d="M320 365Q300 450 280 580L360 580Q340 450 320 365Z" fill="url(#r)" stroke="#2C3E50" stroke-width="8"/><path d="M285 400Q180 450 120 520" fill="none" stroke="url(#r)" stroke-width="55" stroke-linecap="round"/><path d="M355 400Q440 320 500 240" fill="none" stroke="url(#r)" stroke-width="55" stroke-linecap="round"/><path d="M290 580L260 720" fill="none" stroke="url(#r)" stroke-width="50" stroke-linecap="round"/><path d="M350 580L380 720" fill="none" stroke="url(#r)" stroke-width="50" stroke-linecap="round"/></g>
+                    <g><circle cx="704" cy="280" r="85" fill="url(#g)" stroke="#2C3E50" stroke-width="8"/><path d="M704 365Q724 450 744 580L664 580Q684 450 704 365Z" fill="url(#g)" stroke="#2C3E50" stroke-width="8"/><path d="M739 400Q844 450 904 520" fill="none" stroke="url(#g)" stroke-width="55" stroke-linecap="round"/><path d="M669 400Q584 320 524 240" fill="none" stroke="url(#g)" stroke-width="55" stroke-linecap="round"/><path d="M734 580L764 720" fill="none" stroke="url(#g)" stroke-width="50" stroke-linecap="round"/><path d="M674 580L644 720" fill="none" stroke="url(#g)" stroke-width="50" stroke-linecap="round"/></g>
+                    <g stroke="#2C3E50" stroke-width="8" stroke-linecap="round" fill="none"><line x1="512" y1="200" x2="512" y2="150"/><line x1="470" y1="215" x2="440" y2="180"/><line x1="554" y1="215" x2="584" y2="180"/><line x1="445" y1="250" x2="405" y2="235"/><line x1="579" y1="250" x2="619" y2="235"/></g>
                 </g>
                 <defs>
-                    <radialGradient id="rS" cx="50%" cy="30%">
-                        <stop offset="0%" stop-color="#FF5555"/>
-                        <stop offset="100%" stop-color="#660000"/>
-                    </radialGradient>
-                    <radialGradient id="gS" cx="50%" cy="30%">
-                        <stop offset="0%" stop-color="#FFFF77"/>
-                        <stop offset="100%" stop-color="#CC9900"/>
-                    </radialGradient>
+                    <radialGradient id="r" cx="50%" cy="30%"><stop offset="0%" stop-color="#FF5555"/><stop offset="100%" stop-color="#660000"/></radialGradient>
+                    <radialGradient id="g" cx="50%" cy="30%"><stop offset="0%" stop-color="#FFFF77"/><stop offset="100%" stop-color="#CC9900"/></radialGradient>
                 </defs>
             </svg>
         </div>
 
-        <div class="title">Besties<span class="tm">™</span></div>
-        <div class="usc-badge">AT USC</div>
-        <p class="tagline">The social network USC should have come with.</p>
+        <h1 class="a a2">Besties <span class="at">@</span> USC</h1>
+        <p class="tagline a a3">The private social network built just for University of Southern California students.</p>
+    </section>
 
-        <!-- Store buttons -->
-        <div class="store-buttons">
-            <a href="https://apps.apple.com/us/app/besties-usc/id6757664170" class="store-btn apple">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                <div class="btn-text">
-                    <span class="btn-label">Download on the</span>
-                    <span class="btn-store">App Store</span>
-                </div>
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.bestiesatusc.app&hl=en_US" class="store-btn google">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-                <div class="btn-text">
-                    <span class="btn-label">Get it on</span>
-                    <span class="btn-store">Google Play</span>
-                </div>
-            </a>
+    <!-- Store buttons -->
+    <section class="stores a a4">
+        <a href="https://apps.apple.com/us/app/besties-usc/id6757664170" class="s-btn ios">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div class="txt">
+                <span class="small">Download on the</span>
+                <span class="big">App Store</span>
+            </div>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.bestiesatusc.app&hl=en_US" class="s-btn gp">
+            <svg class="icon" viewBox="0 0 512 512">
+                <path d="M270.7 264.9L34.5 502.3c4.8 3 10.6 4.7 16.8 4.7 6 0 12-1.8 17.2-5.2L330 370.5z" fill="#EA4335"/>
+                <path d="M471.3 237.5L380 184.8l-67.2 80.1 67.2 80.1 91.3-52.7c16.2-9.4 16.2-45.4 0-54.8z" fill="#FBBC04"/>
+                <path d="M34.5 9.7C32.4 14 31.3 19 31.3 24.5v463c0 5.5 1.1 10.5 3.2 14.8L270.7 264.9z" fill="#4285F4"/>
+                <path d="M272.2 261L330 141.5 68.5 10C63.3 6.7 57.3 5 51.3 5c-6.2 0-12 1.7-16.8 4.7z" fill="#34A853"/>
+            </svg>
+            <div class="txt">
+                <span class="small">Get it on</span>
+                <span class="big">Google Play</span>
+            </div>
+        </a>
+    </section>
+
+    <div class="sep a a5"></div>
+
+    <!-- Features 2×3 -->
+    <section class="features a a5">
+        <div class="feat">
+            <span class="emoji">👀</span>
+            <span class="name">Missed Connections</span>
+            <span class="desc">Second chances start here.</span>
         </div>
+        <div class="feat">
+            <span class="emoji">👋</span>
+            <span class="name">Friends</span>
+            <span class="desc">Browse by name, major, or interests.</span>
+        </div>
+        <div class="feat">
+            <span class="emoji">🎉</span>
+            <span class="name">Hangouts</span>
+            <span class="desc">Spontaneous plans. Just show up.</span>
+        </div>
+        <div class="feat">
+            <span class="emoji">👥</span>
+            <span class="name">Groups</span>
+            <span class="desc">Dorms, majors, gym buddies & more.</span>
+        </div>
+        <div class="feat">
+            <span class="emoji">📢</span>
+            <span class="name">Community</span>
+            <span class="desc">The campus bulletin board.</span>
+        </div>
+        <div class="feat">
+            <span class="emoji">💬</span>
+            <span class="name">Chat</span>
+            <span class="desc">DMs and group messages.</span>
+        </div>
+    </section>
 
-        <!-- Divider -->
-        <div class="divider"><span>Follow</span></div>
+    <!-- Verified -->
+    <div class="verified a a6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(100,200,130,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Verified with @usc.edu email
+    </div>
 
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/besties_usc/" class="ig-link" target="_blank" rel="noopener">
+    <!-- Instagram -->
+    <section class="social a a6">
+        <a href="https://www.instagram.com/besties_usc/" class="ig" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig)" stroke-width="2"/>
-                <circle cx="12" cy="12" r="5" stroke="url(#ig)" stroke-width="2"/>
-                <circle cx="17.5" cy="6.5" r="1.5" fill="url(#ig)"/>
                 <defs>
-                    <linearGradient id="ig" x1="2" y1="22" x2="22" y2="2">
+                    <linearGradient id="igc" x1="2" y1="22" x2="22" y2="2">
                         <stop stop-color="#F58529"/>
                         <stop offset="0.5" stop-color="#DD2A7B"/>
                         <stop offset="1" stop-color="#8134AF"/>
                     </linearGradient>
                 </defs>
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igc)" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="5" stroke="url(#igc)" stroke-width="1.8"/>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="url(#igc)"/>
             </svg>
             @besties_usc
         </a>
+    </section>
 
-        <!-- Footer -->
-        <div class="footer-row">
-            <p class="edu">✓ Requires <span>@usc.edu</span> email</p>
-            <p class="fight-on">FIGHT ON! ✌️</p>
-            <p class="copyright">© 2026 <a href="https://allmybesties.com">Besties, Inc.</a></p>
-        </div>
-    </div>
+    <!-- Footer -->
+    <footer class="foot a a7">
+        <p class="disc">Besties is an independent app by Besties, Inc. Not affiliated with, endorsed by, or sponsored by the University of Southern California.</p>
+        <p class="copy">© 2026 <a href="https://allmybesties.com">Besties, Inc.</a></p>
+    </footer>
+
+</div>
 
 </body>
 </html>
