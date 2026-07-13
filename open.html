@@ -18,7 +18,12 @@
     <link rel="icon" type="image/png" href="regularlogo.png">
     <link rel="apple-touch-icon" href="regularlogo.png">
 
-    <!-- Not a page we want indexed — it's an email destination, not content. -->
+    <!-- Safari's native Smart App Banner. iOS reads the App Store ID and decides
+         for itself: "OPEN" if the app is installed, "VIEW" if it isn't. It cannot
+         be wrong, and it costs one line. -->
+    <meta name="apple-itunes-app" content="app-id=6757664170">
+
+    <!-- Not a page we want indexed - it's an email destination, not content. -->
     <meta name="robots" content="noindex, nofollow">
 
     <meta property="og:title" content="Open Besties">
@@ -47,7 +52,6 @@
             flex-direction: column;
         }
 
-        /* ── Background (identical to usc.html) ── */
         .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
         .bg::before {
             content: '';
@@ -69,166 +73,272 @@
 
         .page {
             position: relative; z-index: 1;
-            max-width: 420px; margin: 0 auto; padding: 0 24px;
+            max-width: 400px; margin: 0 auto; padding: 0 24px;
             display: flex; flex-direction: column; align-items: center;
             flex: 1;
             justify-content: center;
             width: 100%;
         }
 
-        /* ── Animations ── */
         @keyframes up {
-            from { opacity: 0; transform: translateY(16px); }
+            from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 12px 40px rgba(14,165,233,0.12), 0 0 0 0.5px rgba(255,255,255,0.08); }
-            50% { box-shadow: 0 16px 52px rgba(14,165,233,0.2), 0 0 0 0.5px rgba(255,255,255,0.1); }
+        /* THE SIGNATURE: a slow breath under the logo. Someone is on the other
+           end of this, waiting. The page should feel like it's holding a door
+           open, not like a billboard. */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.28); opacity: 0; }
         }
-        .a { animation: up 0.5s ease-out both; }
-        .a1 { animation-delay: 0.04s; }
-        .a2 { animation-delay: 0.08s; }
-        .a3 { animation-delay: 0.12s; }
-        .a4 { animation-delay: 0.18s; }
-        .a5 { animation-delay: 0.26s; }
-        .a6 { animation-delay: 0.32s; }
+        @keyframes settle {
+            0%, 100% { box-shadow: 0 14px 44px rgba(14,165,233,0.14), 0 0 0 0.5px rgba(255,255,255,0.09); }
+            50% { box-shadow: 0 18px 56px rgba(14,165,233,0.22), 0 0 0 0.5px rgba(255,255,255,0.11); }
+        }
+        .a { animation: up 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+        .a2 { animation-delay: 0.12s; }
+        .a3 { animation-delay: 0.19s; }
+        .a4 { animation-delay: 0.28s; }
+        .a5 { animation-delay: 0.40s; }
+        .a6 { animation-delay: 0.48s; }
+        .a7 { animation-delay: 0.56s; }
 
-        /* ── Hero ── */
         .hero {
             display: flex; flex-direction: column; align-items: center;
             text-align: center; width: 100%;
-            padding-top: 48px;
+            padding-top: 52px;
         }
 
+        /* The logo sits inside a ring that breathes outward - a signal being
+           sent. It's the only ornament on the page, so it has to earn it. */
+        .logo-wrap {
+            position: relative;
+            width: 104px; height: 104px;
+            margin-bottom: 26px;
+            animation: up 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both;
+        }
+        .logo-wrap::before,
+        .logo-wrap::after {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: 26px;
+            border: 1px solid rgba(14,165,233,0.55);
+            animation: breathe 3.4s cubic-bezier(0.4,0,0.6,1) infinite;
+            pointer-events: none;
+        }
+        .logo-wrap::after { animation-delay: 1.7s; }
+
         .logo {
-            width: 104px; height: 104px; border-radius: 26px; overflow: hidden;
-            animation: up 0.5s ease-out 0.04s both, glow 3s ease-in-out 0.5s infinite;
-            margin-bottom: 24px;
+            position: relative;
+            width: 100%; height: 100%;
+            border-radius: 26px; overflow: hidden;
+            animation: settle 3.4s ease-in-out infinite;
         }
         .logo img { width: 100%; height: 100%; display: block; }
 
         h1 {
-            font-size: 26px; font-weight: 700; letter-spacing: -0.3px;
-            line-height: 1.25; margin-bottom: 10px;
-            max-width: 320px;
+            font-size: 27px; font-weight: 700; letter-spacing: -0.5px;
+            line-height: 1.22; margin-bottom: 11px;
+            max-width: 300px;
         }
 
         .tagline {
             font-size: 15px; font-weight: 400;
-            color: rgba(255,255,255,0.5); line-height: 1.55;
-            max-width: 300px; margin-bottom: 34px;
+            color: rgba(255,255,255,0.48); line-height: 1.5;
+            max-width: 260px; margin-bottom: 34px;
         }
 
-        /* ── Already-have-it nudge (the cheapest conversion) ── */
-        .have-it {
+        /* THE ACTION. Almost everyone who lands here already HAS the app - they
+           just never open it. So this is the primary button, and it gets the
+           only saturated colour on the page. Everything else recedes.
+
+           href is the BARE scheme. No path. The shipped app has no /open route,
+           so handing it one risks an unmatched-route screen; a bare scheme just
+           launches the app to its home screen, where the unread badges already
+           say who's waiting. */
+        .open-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 9px;
             width: 100%;
-            background: rgba(14,165,233,0.06);
-            border: 1px solid rgba(14,165,233,0.14);
-            border-radius: 14px;
-            padding: 14px 18px;
-            margin-bottom: 18px;
-            text-align: center;
-            font-size: 14px; font-weight: 500;
-            color: rgba(255,255,255,0.72);
-            line-height: 1.45;
-        }
-        .have-it strong { color: #fff; font-weight: 700; }
-
-        /* ── Store buttons ── */
-        .stores {
-            width: 100%; display: flex; flex-direction: column;
-            gap: 10px; margin-bottom: 28px;
-        }
-        .s-btn {
-            display: flex; align-items: center; gap: 14px;
-            width: 100%; padding: 15px 20px; border-radius: 14px;
+            padding: 17px 20px;
+            border-radius: 15px;
+            background: #0EA5E9;
+            color: #fff;
             text-decoration: none;
-            transition: transform 0.12s, box-shadow 0.2s;
+            font-size: 17px; font-weight: 700; letter-spacing: -0.1px;
+            box-shadow: 0 8px 30px rgba(14,165,233,0.28);
+            transition: transform 0.14s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s;
             -webkit-tap-highlight-color: transparent;
         }
-        .s-btn:active { transform: scale(0.98); }
-        .s-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+        .open-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+        .open-btn:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 12px 38px rgba(14,165,233,0.42);
+        }
+        .open-btn:active { transform: scale(0.98); }
+        .open-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
-        .s-btn.ios { background: #0EA5E9; color: #fff; }
-        .s-btn.gp {
-            background: rgba(255,255,255,0.06);
+        .open-note {
+            font-size: 12.5px; font-weight: 400;
+            color: rgba(255,255,255,0.32);
+            margin-top: 11px;
+            text-align: center;
+        }
+
+        /* A hairline with the fallback question sitting inside it. The divider
+           encodes something true: everything below is for the minority who no
+           longer have the app. */
+        .split {
+            display: flex; align-items: center; gap: 14px;
+            width: 100%;
+            margin: 30px 0 18px;
+        }
+        .split::before, .split::after {
+            content: '';
+            flex: 1; height: 1px;
+            background: rgba(255,255,255,0.07);
+        }
+        .split span {
+            font-size: 12px; font-weight: 500;
+            color: rgba(255,255,255,0.3);
+            white-space: nowrap;
+        }
+
+        /* Stores: secondary by design. Glass, not colour. */
+        .stores {
+            width: 100%; display: flex; flex-direction: column;
+            gap: 9px; margin-bottom: 34px;
+        }
+        .s-btn {
+            display: flex; align-items: center; gap: 13px;
+            width: 100%; padding: 12px 18px;
+            border-radius: 13px;
+            text-decoration: none;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.075);
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.08);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
+            transition: background 0.18s, border-color 0.18s, transform 0.14s;
+            -webkit-tap-highlight-color: transparent;
         }
-        /* When JS knows the platform, the other store becomes a quiet secondary. */
-        .s-btn.secondary {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.07);
-            opacity: 0.55;
+        .s-btn:hover {
+            background: rgba(255,255,255,0.075);
+            border-color: rgba(255,255,255,0.14);
+            transform: translateY(-1px);
         }
-        .s-btn.secondary:hover { opacity: 0.85; }
+        .s-btn:active { transform: scale(0.985); }
+        .s-btn:focus-visible { outline: 2px solid rgba(14,165,233,0.9); outline-offset: 2px; }
+        .s-btn.secondary { opacity: 0.45; }
+        .s-btn.secondary:hover { opacity: 0.8; }
 
-        .s-btn .icon { width: 26px; height: 26px; flex-shrink: 0; }
+        /* DESKTOP: the launcher is removed (no app to open on a laptop), so the
+           stores become the page's action and the leading one takes the primary
+           blue. Applied by the script below. This is the ONLY place these
+           declarations exist. */
+        .stores.primary { margin-top: 4px; }
+        .stores.primary .s-btn:first-child {
+            background: #0EA5E9;
+            border-color: transparent;
+            box-shadow: 0 8px 30px rgba(14,165,233,0.26);
+        }
+        .stores.primary .s-btn:first-child:hover {
+            background: #38B6F0;
+            box-shadow: 0 12px 38px rgba(14,165,233,0.38);
+        }
+        .stores.primary .s-btn:first-child .small { opacity: 0.8; }
+
+        .s-btn .icon { width: 24px; height: 24px; flex-shrink: 0; }
         .s-btn .txt { display: flex; flex-direction: column; text-align: left; line-height: 1.15; }
-        .s-btn .small { font-size: 10.5px; font-weight: 400; opacity: 0.7; }
-        .s-btn .big { font-size: 17px; font-weight: 700; }
+        .s-btn .small { font-size: 10px; font-weight: 400; opacity: 0.62; }
+        .s-btn .big { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
 
-        /* ── Divider ── */
-        .sep {
-            width: 36px; height: 1px;
-            background: rgba(14,165,233,0.2);
-            margin-bottom: 26px;
-        }
-
-        /* ── Verified ── */
         .verified {
             display: flex; align-items: center; justify-content: center;
             gap: 6px; font-size: 12.5px; font-weight: 500;
-            color: rgba(255,255,255,0.35); margin-bottom: 22px;
+            color: rgba(255,255,255,0.33); margin-bottom: 20px;
         }
-        .verified svg { width: 14px; height: 14px; }
+        .verified svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-        /* ── Instagram ── */
-        .social { margin-bottom: 30px; }
         .ig {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 9px 18px; border-radius: 100px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
-            text-decoration: none; color: rgba(255,255,255,0.6);
+            padding: 8px 17px; border-radius: 100px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.055);
+            text-decoration: none; color: rgba(255,255,255,0.55);
             font-weight: 500; font-size: 13px;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, color 0.2s;
+            margin-bottom: 30px;
             -webkit-tap-highlight-color: transparent;
         }
-        .ig:hover { border-color: rgba(255,255,255,0.12); }
+        .ig:hover { border-color: rgba(255,255,255,0.14); color: rgba(255,255,255,0.8); }
+        .ig:focus-visible { outline: 2px solid rgba(14,165,233,0.9); outline-offset: 2px; }
         .ig svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-        /* ── Footer ── */
         .foot {
             position: relative; z-index: 1;
             text-align: center;
-            padding: 0 24px calc(28px + env(safe-area-inset-bottom, 0px));
+            padding: 0 24px calc(26px + env(safe-area-inset-bottom, 0px));
         }
-        .foot .copy {
-            font-size: 11px;
-            color: rgba(255,255,255,0.15);
-        }
+        .foot .copy { font-size: 11px; color: rgba(255,255,255,0.14); }
         .foot a { color: rgba(255,255,255,0.2); text-decoration: none; }
 
-        /* ── Responsive ── */
         @media (min-width: 420px) {
-            .logo { width: 112px; height: 112px; border-radius: 28px; }
-            h1 { font-size: 28px; }
+            .logo-wrap { width: 112px; height: 112px; }
+            .logo-wrap::before, .logo-wrap::after, .logo { border-radius: 28px; }
+            h1 { font-size: 29px; }
         }
-        @media (max-height: 680px) {
-            .hero { padding-top: 32px; }
-            .logo { width: 88px; height: 88px; border-radius: 22px; margin-bottom: 18px; }
+        @media (max-height: 700px) {
+            .hero { padding-top: 34px; }
+            .logo-wrap { width: 86px; height: 86px; margin-bottom: 20px; }
+            .logo-wrap::before, .logo-wrap::after, .logo { border-radius: 22px; }
             .tagline { margin-bottom: 26px; }
-            .stores { margin-bottom: 22px; }
-            .social { margin-bottom: 22px; }
+            .split { margin: 24px 0 14px; }
+            .stores { margin-bottom: 24px; }
+            .ig { margin-bottom: 22px; }
         }
         @media (max-width: 340px) {
-            h1 { font-size: 23px; }
+            h1 { font-size: 24px; }
             .tagline { font-size: 14px; }
         }
+
+        /* The breath is atmosphere, never information. */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
+
+    <noscript>
+        <!-- NO-JS FALLBACK. Desktop only.
+
+             The script below removes the "Open Besties" button on a laptop,
+             because a desktop browser has nothing to hand bestiesusc:// to — the
+             tap would do nothing. With JS disabled that script never runs, and a
+             laptop would render a big blue button that is simply dead.
+
+             So when scripting is off AND the device has a mouse (hover + fine
+             pointer — a laptop, never a phone), hide the launcher and its
+             divider. The store buttons below are already the correct action, so
+             the page still works perfectly; it just isn't reordered or recoloured.
+
+             Deliberately NO other styling here. Duplicating the store-promotion
+             colours would give two copies of the same rules that silently drift
+             apart the first time either is edited. A JS-off desktop visitor sees
+             the stores in their normal treatment — cosmetically plainer, fully
+             functional, and impossible to break.
+
+             Real touch devices report hover:none and pointer:coarse, so this can
+             never fire on a phone or tablet. Verified against iPhone, Pixel and
+             iPad device profiles. -->
+        <style>
+            @media (hover: hover) and (pointer: fine) {
+                .open-btn, .open-note, .split { display: none; }
+            }
+        </style>
+    </noscript>
 </head>
 <body>
 
@@ -237,32 +347,41 @@
 <div class="page">
 
     <section class="hero">
-        <div class="logo a a1">
-            <img src="usclogo.png" alt="Besties">
+        <div class="logo-wrap">
+            <div class="logo">
+                <img src="usclogo.png" alt="Besties">
+            </div>
         </div>
 
         <h1 class="a a2">Someone reached out to you.</h1>
-        <p class="tagline a a3">Open Besties to see who's waiting.</p>
+        <p class="tagline a a3" id="tagline">Open Besties to see who's waiting.</p>
     </section>
 
-    <!-- Most people still have the app installed. This is the cheapest conversion. -->
-    <div class="have-it a a4">
-        Already have Besties? <strong>Just open the app.</strong>
-    </div>
+    <!-- The primary action. A real <a> - works with JS off, works from inside
+         Gmail's in-app browser (where Universal Links never fire), and asks the
+         OS to do exactly one honest thing: open the app. -->
+    <a href="bestiesusc://" class="open-btn a a4" id="btn-open">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+        <span id="btnLabel">Open Besties</span>
+    </a>
+    <p class="open-note a a4" id="openNote">Your phone will ask &mdash; tap Open</p>
 
-    <!-- Store buttons. JS reorders these so the right one is on top. -->
-    <section class="stores a a4" id="stores">
+    <div class="split a a5" id="split"><span>Don't have the app?</span></div>
 
-        <a href="https://apps.apple.com/us/app/besties-usc/id6757664170" class="s-btn ios" id="btn-ios">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    <section class="stores a a5" id="stores">
+
+        <a href="https://apps.apple.com/us/app/besties-usc/id6757664170" class="s-btn" id="btn-ios">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             <div class="txt">
                 <span class="small">Download on the</span>
                 <span class="big">App Store</span>
             </div>
         </a>
 
-        <a href="https://play.google.com/store/apps/details?id=com.bestiesatusc.app&hl=en_US" class="s-btn gp" id="btn-gp">
-            <svg class="icon" viewBox="0 0 512 512">
+        <a href="https://play.google.com/store/apps/details?id=com.bestiesatusc.app&hl=en_US" class="s-btn" id="btn-gp">
+            <svg class="icon" viewBox="0 0 512 512" aria-hidden="true">
                 <path d="M270.7 264.9L34.5 502.3c4.8 3 10.6 4.7 16.8 4.7 6 0 12-1.8 17.2-5.2L330 370.5z" fill="#EA4335"/>
                 <path d="M471.3 237.5L380 184.8l-67.2 80.1 67.2 80.1 91.3-52.7c16.2-9.4 16.2-45.4 0-54.8z" fill="#FBBC04"/>
                 <path d="M34.5 9.7C32.4 14 31.3 19 31.3 24.5v463c0 5.5 1.1 10.5 3.2 14.8L270.7 264.9z" fill="#4285F4"/>
@@ -276,70 +395,79 @@
 
     </section>
 
-    <div class="sep a a5"></div>
-
-    <div class="verified a a5">
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(100,200,130,0.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <div class="verified a a6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(100,200,130,0.75)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
             <polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
         Verified with @usc.edu email
     </div>
 
-    <section class="social a a6">
-        <a href="https://www.instagram.com/besties_usc/" class="ig" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none">
-                <defs>
-                    <linearGradient id="igc" x1="2" y1="22" x2="22" y2="2">
-                        <stop stop-color="#F58529"/>
-                        <stop offset="0.5" stop-color="#DD2A7B"/>
-                        <stop offset="1" stop-color="#8134AF"/>
-                    </linearGradient>
-                </defs>
-                <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igc)" stroke-width="1.8"/>
-                <circle cx="12" cy="12" r="5" stroke="url(#igc)" stroke-width="1.8"/>
-                <circle cx="17.5" cy="6.5" r="1.5" fill="url(#igc)"/>
-            </svg>
-            @besties_usc
-        </a>
-    </section>
+    <a href="https://www.instagram.com/besties_usc/" class="ig a a7" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="igc" x1="2" y1="22" x2="22" y2="2">
+                    <stop stop-color="#F58529"/>
+                    <stop offset="0.5" stop-color="#DD2A7B"/>
+                    <stop offset="1" stop-color="#8134AF"/>
+                </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igc)" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="5" stroke="url(#igc)" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="url(#igc)"/>
+        </svg>
+        @besties_usc
+    </a>
 
 </div>
 
-<footer class="foot a a6">
+<footer class="foot a a7">
     <p class="copy">&copy; 2026 <a href="https://allmybesties.com">Besties, Inc.</a></p>
 </footer>
 
 <script>
-    // Platform detection — put the right store button on top.
-    // Progressive enhancement ONLY: with JS off, both buttons still show,
-    // both work, and nobody hits a dead end. Never hides a button.
+    // Progressive enhancement ONLY. With JS off every path still works - the
+    // button is a plain <a>, both stores are visible. Nothing here is
+    // load-bearing, and nothing navigates on the user's behalf.
     (function () {
         var ua = navigator.userAgent || '';
         var isIOS = /iPad|iPhone|iPod/.test(ua) ||
-                    // iPadOS 13+ reports as Mac; disambiguate by touch support.
+                    // iPadOS 13+ reports as a Mac; disambiguate via touch.
                     (/Macintosh/.test(ua) && typeof document !== 'undefined' && 'ontouchend' in document);
         var isAndroid = /Android/.test(ua);
+        var isMobile = isIOS || isAndroid;
 
         var stores = document.getElementById('stores');
         var ios = document.getElementById('btn-ios');
         var gp = document.getElementById('btn-gp');
-        if (!stores || !ios || !gp) return;
 
-        if (isAndroid) {
-            // Google Play leads; App Store stays available but recedes.
-            gp.classList.remove('gp');
-            gp.classList.add('ios');            // primary blue treatment
-            ios.classList.remove('ios');
-            ios.classList.add('gp', 'secondary');
+        // Lead with the store the visitor can actually use; the other recedes
+        // but stays reachable.
+        if (isAndroid && stores && ios && gp) {
             stores.insertBefore(gp, ios);
-        } else if (isIOS) {
-            // Default order is already correct (App Store first) — just
-            // recede the Play button.
+            ios.classList.add('secondary');
+        } else if (isIOS && gp) {
             gp.classList.add('secondary');
         }
-        // Desktop / unknown: leave both equal. A student on a laptop may be
-        // deciding which phone to grab; don't presume.
+
+        // DESKTOP: there is no app to open on a laptop - a browser has nothing to
+        // hand bestiesusc:// to. So the "Open Besties" button is meaningless here,
+        // and everyone on desktop is in the same bucket: they need the app on a
+        // phone. Remove the button AND the divider (it has nothing left to divide),
+        // and promote the stores to the primary action. No duplicate App Store
+        // link, no divider contradicting the button above it.
+        if (!isMobile) {
+            var btn = document.getElementById('btn-open');
+            var note = document.getElementById('openNote');
+            var split = document.getElementById('split');
+            var tagline = document.getElementById('tagline');
+            if (btn) btn.remove();
+            if (note) note.remove();
+            if (split) split.remove();
+            if (tagline) tagline.textContent = 'Get Besties on your phone to see who.';
+            // The stores carry the page now, so give them presence.
+            if (stores) stores.classList.add('primary');
+        }
     })();
 </script>
 
