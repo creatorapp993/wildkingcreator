@@ -178,11 +178,14 @@
         .open-btn:active { transform: scale(0.98); }
         .open-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
+        /* This used to hold a caption under the button explaining the iOS
+           confirmation dialog. Cut: the dialog is self-explanatory, and captioning
+           it made the page look like it was apologising for itself. The element
+           stays as a pure spacer so the rhythm between the launcher and the divider
+           is untouched - the same 23px + 11px the text line occupied. */
         .open-note {
-            font-size: 12.5px; font-weight: 400;
-            color: rgba(255,255,255,0.32);
+            height: 23px;
             margin-top: 11px;
-            text-align: center;
         }
 
         /* A hairline with the fallback question sitting inside it. The divider
@@ -366,7 +369,7 @@
         </svg>
         <span id="btnLabel">Open Besties</span>
     </a>
-    <p class="open-note a a4" id="openNote">Your phone will ask &mdash; tap Open</p>
+    <div class="open-note" id="openNote" aria-hidden="true"></div>
 
     <div class="split a a5" id="split"><span>Don't have the app?</span></div>
 
